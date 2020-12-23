@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bdjbd.dao.mapper.QaReviewExpertMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.bdjbd.dao.entity.QaReviewExpertEntity" id="qaReviewExpertMap">
+        <result property="id" column="id"/>
+        <result property="expertName" column="expert_name"/>
+        <result property="accountNumber" column="account_number"/>
+        <result property="password" column="password"/>
+        <result property="company" column="company"/>
+    </resultMap>
+    <insert id="addExpert">
+        insert into qa_review_expert
+            (
+            expert_name,
+            account_number,
+            password,
+            company
+            )
+            values(
+            #{expertName,jdbcType=VARCHAR},
+            #{accountNumber,jdbcType=VARCHAR},
+            #{password,jdbcType=VARCHAR},
+            #{company,jdbcType=VARCHAR}
+            )
+    </insert>
+    <update id="updateExpert">
+        UPDATE qa_review_expert
+        <trim prefix="set" suffixOverrides=",">
+        <if test="expertName!=null">expert_name=#{expertName},</if>
+        <if test="accountNumber!=null">account_number=#{accountNumber},</if>
+        <if test="password!=null">password=#{password},</if>
+        <if test="company!=null">company=#{company},</if>
+        </trim>
+        where id = #{id}
+    </update>
+    <delete id="deleteExpert">
+        delete from qa_review_expert where id = #{id}
+    </delete>
+
+</mapper>

@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bdjbd.dao.mapper.SysAdminMapper">
+	<resultMap id="BaseResultMap" type="com.bdjbd.dao.entity.SysAdmin">
+        <id column="id" jdbcType="VARCHAR" property="id" />
+        <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+        <result column="department" jdbcType="VARCHAR" property="department" />
+        <result column="email" jdbcType="VARCHAR" property="email" />
+		<result column="is_enabled" jdbcType="BIT" property="hasEnabled" />
+		<result column="is_locked" jdbcType="BIT" property="isLocked" />
+		<result column="locked_date" jdbcType="TIMESTAMP" property="lockedDate" />
+		<result column="login_date" jdbcType="TIMESTAMP" property="loginDate" />
+		<result column="login_failure_count" jdbcType="INTEGER" property="loginFailureCount" />
+		<result column="login_ip" jdbcType="VARCHAR" property="loginIp" />
+		<result column="memo" jdbcType="VARCHAR" property="memo" />
+		<result column="mobile" jdbcType="VARCHAR" property="mobile" />
+		<result column="modify_date" jdbcType="TIMESTAMP" property="modifyDate" />
+		<result column="name" jdbcType="VARCHAR" property="name" />
+		<result column="password" jdbcType="VARCHAR" property="password" />
+		<result column="username" jdbcType="VARCHAR" property="username" />
+        <result column="roles" jdbcType="VARCHAR" property="roles" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+	`create_date`, `department`, `email`, `id`, `is_enabled`, `is_locked`, `locked_date`, `login_date`, `login_failure_count`, `login_ip`, `memo`, `mobile`, `modify_date`, `name`, `password`, `username`, `roles`
+	</sql>
+
+    <!-- 批量插入 -->
+    <insert id = "batchInsert">
+        INSERT INTO `sys_admin` (<include refid="Base_Column_List" />) VALUES
+        <foreach collection="items" item="item" separator=",">
+            (
+			#{item.createDate},
+		    
+			#{item.department},
+		    
+			#{item.email},
+		    
+			#{item.id},
+		    
+			#{item.hasEnabled},
+		    
+			#{item.isLocked},
+		    
+			#{item.lockedDate},
+		    
+			#{item.loginDate},
+		    
+			#{item.loginFailureCount},
+		    
+			#{item.loginIp},
+		    
+			#{item.memo},
+		    
+			#{item.mobile},
+		    
+			#{item.modifyDate},
+		    
+			#{item.name},
+		    
+			#{item.password},
+		    
+			#{item.username},
+
+            #{item.roles}
+		    )
+        </foreach>
+    </insert>
+
+    <!-- 批量更新 -->
+    <update id="batchUpdate">
+        <foreach collection="items" item="item" index="index" open="" close="" separator=";">
+            UPDATE `sys_admin`
+            <set>
+                   <if test="item.createDate != null">
+                       `create_date` = #{item.createDate},
+                   </if>
+                   <if test="item.department != null">
+                       `department` = #{item.department},
+                   </if>
+                   <if test="item.email != null">
+                       `email` = #{item.email},
+                   </if>
+                   <if test="item.id != null">
+                       `id` = #{item.id},
+                   </if>
+                   <if test="item.hasEnabled != null">
+                       `is_enabled` = #{item.hasEnabled},
+                   </if>
+                   <if test="item.isLocked != null">
+                       `is_locked` = #{item.isLocked},
+                   </if>
+                   <if test="item.lockedDate != null">
+                       `locked_date` = #{item.lockedDate},
+                   </if>
+                   <if test="item.loginDate != null">
+                       `login_date` = #{item.loginDate},
+                   </if>
+                   <if test="item.loginFailureCount != null">
+                       `login_failure_count` = #{item.loginFailureCount},
+                   </if>
+                   <if test="item.loginIp != null">
+                       `login_ip` = #{item.loginIp},
+                   </if>
+                   <if test="item.memo != null">
+                       `memo` = #{item.memo},
+                   </if>
+                   <if test="item.mobile != null">
+                       `mobile` = #{item.mobile},
+                   </if>
+                   <if test="item.modifyDate != null">
+                       `modify_date` = #{item.modifyDate},
+                   </if>
+                   <if test="item.name != null">
+                       `name` = #{item.name},
+                   </if>
+                   <if test="item.password != null">
+                       `password` = #{item.password},
+                   </if>
+                   <if test="item.username != null">
+                       `username` = #{item.username}
+                   </if>
+                    <if test="item.roles != null">
+                        `roles` = #{item.roles}
+                    </if>
+            </set>
+            <where>
+			`id` = #{item.id}
+            </where>
+        </foreach>
+    </update>
+
+    <select id="selectPage" resultType="com.bdjbd.dao.entity.SysAdmin">
+        select * ,qa_standard_record.technology_title as technologyTitle from sys_admin left join `qa_standard_record` on
+            sys_admin.`id` = qa_standard_record.`user_id`
+        where 1=1
+        <if test="attr0 != null">
+            and qa_standard_record.attr0 = #{attr0}
+        </if>
+        <if test="mobile != null">
+            <bind name="mobile_" value="'%'+mobile+'%'"/>
+            and sys_admin.mobile like #{mobile_}
+        </if>
+        <if test="name != null">
+            <bind name="name_" value="'%'+name+'%'"/>
+            and sys_admin.name like #{name_}
+        </if>
+        <if test="roles != null">
+            <bind name="roles_" value="'%'+roles+'%'"/>
+            and sys_admin.roles like #{roles_}
+        </if>
+        order by sys_admin.create_date desc
+        limit #{offset}, #{limit}
+    </select>
+    <select id="countPage"  resultType="int">
+        select count(1) from sys_admin left join `qa_standard_record` on
+            sys_admin.`id` = qa_standard_record.`user_id`
+        where 1=1
+        <if test="attr0 != null">
+            and qa_standard_record.attr0 = #{attr0}
+        </if>
+        <if test="mobile != null">
+            <bind name="mobile_" value="'%'+mobile+'%'"/>
+            and sys_admin.mobile like #{mobile_}
+        </if>
+        <if test="name != null">
+            <bind name="name_" value="'%'+name+'%'"/>
+            and sys_admin.name like #{name_}
+        </if>
+        <if test="roles != null">
+            <bind name="roles_" value="'%'+roles+'%'"/>
+            and sys_admin.roles like #{roles_}
+        </if>
+    </select>
+</mapper>

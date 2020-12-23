@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bdjbd.dao.mapper.QaRelationClauseCategoryMapper">
+	<resultMap id="BaseResultMap" type="com.bdjbd.dao.entity.QaRelationClauseCategory">
+		<result column="clause_id" jdbcType="VARCHAR" property="clauseId" />
+		<result column="category_id" jdbcType="VARCHAR" property="categoryId" />
+		<result column="clause_item_condition" jdbcType="VARCHAR" property="clauseItemCondition" />
+	</resultMap>
+	<sql id="Base_Column_List">
+	`clause_id`, `category_id`, `clause_item_condition`
+	</sql>
+
+    <!-- 批量插入 -->
+    <insert id = "batchInsert">
+        INSERT INTO `qa_relation_clause_category` (<include refid="Base_Column_List" />) VALUES
+        <foreach collection="items" item="item" separator=",">
+            (
+			#{item.clauseId},
+		    
+			#{item.categoryId},
+		    
+			#{item.clauseItemCondition}
+		    )
+        </foreach>
+    </insert>
+
+</mapper>

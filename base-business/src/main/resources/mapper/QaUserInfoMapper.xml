@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bdjbd.dao.mapper.QaUserInfoMapper">
+	<resultMap id="BaseResultMap" type="com.bdjbd.dao.entity.QaUserInfo">
+		<id column="id" jdbcType="VARCHAR" property="id" />
+		<result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+		<result column="modify_date" jdbcType="TIMESTAMP" property="modifyDate" />
+		<result column="mobile" jdbcType="VARCHAR" property="mobile" />
+		<result column="name" jdbcType="VARCHAR" property="name" />
+		<result column="sex" jdbcType="BIGINT" property="sex" />
+		<result column="id_card" jdbcType="VARCHAR" property="idCard" />
+		<result column="personnel_category" jdbcType="VARCHAR" property="personnelCategory" />
+		<result column="birth" jdbcType="VARCHAR" property="birth" />
+		<result column="enlistment_time" jdbcType="TIMESTAMP" property="enlistmentTime" />
+		<result column="enter_employment_time" jdbcType="TIMESTAMP" property="enterEmploymentTime" />
+		<result column="political_affiliation" jdbcType="VARCHAR" property="politicalAffiliation" />
+		<result column="caucus_time" jdbcType="TIMESTAMP" property="caucusTime" />
+		<result column="last_education" jdbcType="VARCHAR" property="lastEducation" />
+		<result column="major" jdbcType="VARCHAR" property="major" />
+		<result column="highest_degree" jdbcType="VARCHAR" property="highestDegree" />
+		<result column="highest_degree_time" jdbcType="TIMESTAMP" property="highestDegreeTime" />
+		<result column="last_school_major" jdbcType="VARCHAR" property="lastSchoolMajor" />
+		<result column="graduate_time" jdbcType="TIMESTAMP" property="graduateTime" />
+		<result column="highest_school_major" jdbcType="VARCHAR" property="highestSchoolMajor" />
+		<result column="highest_get_time" jdbcType="TIMESTAMP" property="highestGetTime" />
+		<result column="school_category" jdbcType="VARCHAR" property="schoolCategory" />
+		<result column="technology_title" jdbcType="VARCHAR" property="technologyTitle" />
+		<result column="appoint_time" jdbcType="TIMESTAMP" property="appointTime" />
+		<result column="appoint_annex" jdbcType="VARCHAR" property="appointAnnex" />
+		<result column="technology_level" jdbcType="VARCHAR" property="technologyLevel" />
+		<result column="technology_level_time" jdbcType="TIMESTAMP" property="technologyLevelTime" />
+		<result column="military_rank" jdbcType="VARCHAR" property="militaryRank" />
+		<result column="military_rank_time" jdbcType="TIMESTAMP" property="militaryRankTime" />
+		<result column="technology_category" jdbcType="VARCHAR" property="technologyCategory" />
+		<result column="technology_category_time" jdbcType="TIMESTAMP" property="technologyCategoryTime" />
+		<result column="official_rank" jdbcType="VARCHAR" property="officialRank" />
+		<result column="academic_title" jdbcType="VARCHAR" property="academicTitle" />
+		<result column="break_rule" jdbcType="BIGINT" property="breakRule" />
+		<result column="break_rule_annex" jdbcType="VARCHAR" property="breakRuleAnnex" />
+		<result column="department" jdbcType="VARCHAR" property="department" />
+		<result column="get_qualifications_time" jdbcType="TIMESTAMP" property="getQualificationsTime" />
+		<result column="get_qualifications_annex" jdbcType="VARCHAR" property="getQualificationsAnnex" />
+		<result column="tech_num" jdbcType="VARCHAR" property="techNum" />
+		<result column="attr0" jdbcType="VARCHAR" property="attr0" />
+		<result column="attr1" jdbcType="VARCHAR" property="attr1" />
+		<result column="attr2" jdbcType="VARCHAR" property="attr2" />
+		<result column="attr3" jdbcType="VARCHAR" property="attr3" />
+		<result column="attr4" jdbcType="VARCHAR" property="attr4" />
+		<result column="attr5" jdbcType="VARCHAR" property="attr5" />
+		<result column="attr6" jdbcType="VARCHAR" property="attr6" />
+		<result column="attr7" jdbcType="VARCHAR" property="attr7" />
+		<result column="attr8" jdbcType="VARCHAR" property="attr8" />
+		<result column="attr9" jdbcType="VARCHAR" property="attr9" />
+	</resultMap>
+	<sql id="Base_Column_List">
+	`id`, `create_date`, `modify_date`, `mobile`, `name`, `sex`, `id_card`, `personnel_category`, `birth`, `enlistment_time`, `enter_employment_time`, `political_affiliation`, `caucus_time`, `last_education`, `major`, `highest_degree`, `highest_degree_time`, `last_school_major`, `graduate_time`, `highest_school_major`, `highest_get_time`, `school_category`, `technology_title`, `appoint_time`, `appoint_annex`, `technology_level`, `technology_level_time`, `military_rank`, `military_rank_time`, `technology_category`, `technology_category_time`, `official_rank`, `academic_title`, `break_rule`, `break_rule_annex`, `department`, `get_qualifications_time`, `get_qualifications_annex`, `tech_num`, `attr0`, `attr1`, `attr2`, `attr3`, `attr4`, `attr5`, `attr6`, `attr7`, `attr8`, `attr9`
+	</sql>
+
+    <!-- 批量插入 -->
+    <insert id = "batchInsert">
+        INSERT INTO `qa_user_info` (<include refid="Base_Column_List" />) VALUES
+        <foreach collection="items" item="item" separator=",">
+            (
+			#{item.id},
+		    
+			#{item.createDate},
+		    
+			#{item.modifyDate},
+		    
+			#{item.mobile},
+		    
+			#{item.name},
+		    
+			#{item.sex},
+		    
+			#{item.idCard},
+		    
+			#{item.personnelCategory},
+		    
+			#{item.birth},
+		    
+			#{item.enlistmentTime},
+		    
+			#{item.enterEmploymentTime},
+		    
+			#{item.politicalAffiliation},
+		    
+			#{item.caucusTime},
+		    
+			#{item.lastEducation},
+		    
+			#{item.major},
+		    
+			#{item.highestDegree},
+		    
+			#{item.highestDegreeTime},
+		    
+			#{item.lastSchoolMajor},
+		    
+			#{item.graduateTime},
+		    
+			#{item.highestSchoolMajor},
+		    
+			#{item.highestGetTime},
+		    
+			#{item.schoolCategory},
+		    
+			#{item.technologyTitle},
+		    
+			#{item.appointTime},
+		    
+			#{item.appointAnnex},
+		    
+			#{item.technologyLevel},
+		    
+			#{item.technologyLevelTime},
+		    
+			#{item.militaryRank},
+		    
+			#{item.militaryRankTime},
+		    
+			#{item.technologyCategory},
+		    
+			#{item.technologyCategoryTime},
+		    
+			#{item.officialRank},
+		    
+			#{item.academicTitle},
+		    
+			#{item.breakRule},
+		    
+			#{item.breakRuleAnnex},
+		    
+			#{item.department},
+		    
+			#{item.getQualificationsTime},
+		    
+			#{item.getQualificationsAnnex},
+		    
+			#{item.techNum},
+		    
+			#{item.attr0},
+		    
+			#{item.attr1},
+		    
+			#{item.attr2},
+		    
+			#{item.attr3},
+		    
+			#{item.attr4},
+		    
+			#{item.attr5},
+		    
+			#{item.attr6},
+		    
+			#{item.attr7},
+		    
+			#{item.attr8},
+		    
+			#{item.attr9}
+		    )
+        </foreach>
+    </insert>
+
+    <!-- 批量更新 -->
+    <update id="batchUpdate">
+        <foreach collection="items" item="item" index="index" open="" close="" separator=";">
+            UPDATE `qa_user_info`
+            <set>
+                   <if test="item.id != null">
+                       `id` = #{item.id},
+                   </if>
+                   <if test="item.createDate != null">
+                       `create_date` = #{item.createDate},
+                   </if>
+                   <if test="item.modifyDate != null">
+                       `modify_date` = #{item.modifyDate},
+                   </if>
+                   <if test="item.mobile != null">
+                       `mobile` = #{item.mobile},
+                   </if>
+                   <if test="item.name != null">
+                       `name` = #{item.name},
+                   </if>
+                   <if test="item.sex != null">
+                       `sex` = #{item.sex},
+                   </if>
+                   <if test="item.idCard != null">
+                       `id_card` = #{item.idCard},
+                   </if>
+                   <if test="item.personnelCategory != null">
+                       `personnel_category` = #{item.personnelCategory},
+                   </if>
+                   <if test="item.birth != null">
+                       `birth` = #{item.birth},
+                   </if>
+                   <if test="item.enlistmentTime != null">
+                       `enlistment_time` = #{item.enlistmentTime},
+                   </if>
+                   <if test="item.enterEmploymentTime != null">
+                       `enter_employment_time` = #{item.enterEmploymentTime},
+                   </if>
+                   <if test="item.politicalAffiliation != null">
+                       `political_affiliation` = #{item.politicalAffiliation},
+                   </if>
+                   <if test="item.caucusTime != null">
+                       `caucus_time` = #{item.caucusTime},
+                   </if>
+                   <if test="item.lastEducation != null">
+                       `last_education` = #{item.lastEducation},
+                   </if>
+                   <if test="item.major != null">
+                       `major` = #{item.major},
+                   </if>
+                   <if test="item.highestDegree != null">
+                       `highest_degree` = #{item.highestDegree},
+                   </if>
+                   <if test="item.highestDegreeTime != null">
+                       `highest_degree_time` = #{item.highestDegreeTime},
+                   </if>
+                   <if test="item.lastSchoolMajor != null">
+                       `last_school_major` = #{item.lastSchoolMajor},
+                   </if>
+                   <if test="item.graduateTime != null">
+                       `graduate_time` = #{item.graduateTime},
+                   </if>
+                   <if test="item.highestSchoolMajor != null">
+                       `highest_school_major` = #{item.highestSchoolMajor},
+                   </if>
+                   <if test="item.highestGetTime != null">
+                       `highest_get_time` = #{item.highestGetTime},
+                   </if>
+                   <if test="item.schoolCategory != null">
+                       `school_category` = #{item.schoolCategory},
+                   </if>
+                   <if test="item.technologyTitle != null">
+                       `technology_title` = #{item.technologyTitle},
+                   </if>
+                   <if test="item.appointTime != null">
+                       `appoint_time` = #{item.appointTime},
+                   </if>
+                   <if test="item.appointAnnex != null">
+                       `appoint_annex` = #{item.appointAnnex},
+                   </if>
+                   <if test="item.technologyLevel != null">
+                       `technology_level` = #{item.technologyLevel},
+                   </if>
+                   <if test="item.technologyLevelTime != null">
+                       `technology_level_time` = #{item.technologyLevelTime},
+                   </if>
+                   <if test="item.militaryRank != null">
+                       `military_rank` = #{item.militaryRank},
+                   </if>
+                   <if test="item.militaryRankTime != null">
+                       `military_rank_time` = #{item.militaryRankTime},
+                   </if>
+                   <if test="item.technologyCategory != null">
+                       `technology_category` = #{item.technologyCategory},
+                   </if>
+                   <if test="item.technologyCategoryTime != null">
+                       `technology_category_time` = #{item.technologyCategoryTime},
+                   </if>
+                   <if test="item.officialRank != null">
+                       `official_rank` = #{item.officialRank},
+                   </if>
+                   <if test="item.academicTitle != null">
+                       `academic_title` = #{item.academicTitle},
+                   </if>
+                   <if test="item.breakRule != null">
+                       `break_rule` = #{item.breakRule},
+                   </if>
+                   <if test="item.breakRuleAnnex != null">
+                       `break_rule_annex` = #{item.breakRuleAnnex},
+                   </if>
+                   <if test="item.department != null">
+                       `department` = #{item.department},
+                   </if>
+                   <if test="item.getQualificationsTime != null">
+                       `get_qualifications_time` = #{item.getQualificationsTime},
+                   </if>
+                   <if test="item.getQualificationsAnnex != null">
+                       `get_qualifications_annex` = #{item.getQualificationsAnnex},
+                   </if>
+                   <if test="item.techNum != null">
+                       `tech_num` = #{item.techNum},
+                   </if>
+                   <if test="item.attr0 != null">
+                       `attr0` = #{item.attr0},
+                   </if>
+                   <if test="item.attr1 != null">
+                       `attr1` = #{item.attr1},
+                   </if>
+                   <if test="item.attr2 != null">
+                       `attr2` = #{item.attr2},
+                   </if>
+                   <if test="item.attr3 != null">
+                       `attr3` = #{item.attr3},
+                   </if>
+                   <if test="item.attr4 != null">
+                       `attr4` = #{item.attr4},
+                   </if>
+                   <if test="item.attr5 != null">
+                       `attr5` = #{item.attr5},
+                   </if>
+                   <if test="item.attr6 != null">
+                       `attr6` = #{item.attr6},
+                   </if>
+                   <if test="item.attr7 != null">
+                       `attr7` = #{item.attr7},
+                   </if>
+                   <if test="item.attr8 != null">
+                       `attr8` = #{item.attr8},
+                   </if>
+                   <if test="item.attr9 != null">
+                       `attr9` = #{item.attr9}
+                   </if>
+            </set>
+            <where>
+			`id` = #{item.id}
+            </where>
+        </foreach>
+    </update>
+</mapper>

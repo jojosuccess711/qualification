@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bdjbd.dao.mapper.QaInfoRecordMapper">
+	<resultMap id="BaseResultMap" type="com.bdjbd.dao.entity.QaInfoRecord">
+		<id column="id" jdbcType="VARCHAR" property="id" />
+		<result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+		<result column="modify_date" jdbcType="TIMESTAMP" property="modifyDate" />
+		<result column="user_id" jdbcType="VARCHAR" property="userId" />
+		<result column="user_name" jdbcType="VARCHAR" property="userName" />
+		<result column="final_category_child_id" jdbcType="VARCHAR" property="finalCategoryChildId" />
+		<result column="final_category_child_name" jdbcType="VARCHAR" property="finalCategoryChildName" />
+		<result column="final_category_tree_path" jdbcType="VARCHAR" property="finalCategoryTreePath" />
+		<result column="first_approve_status" jdbcType="INTEGER" property="firstApproveStatus" />
+		<result column="first_approve_time" jdbcType="TIMESTAMP" property="firstApproveTime" />
+		<result column="first_approve_user" jdbcType="VARCHAR" property="firstApproveUser" />
+		<result column="first_approve_user_id" jdbcType="VARCHAR" property="firstApproveUserId" />
+		<result column="first_approve_opinion" jdbcType="VARCHAR" property="firstApproveOpinion" />
+		<result column="first_category_child_id" jdbcType="VARCHAR" property="firstCategoryChildId" />
+		<result column="first_category_tree_path" jdbcType="VARCHAR" property="firstCategoryTreePath" />
+		<result column="second_approve_status" jdbcType="INTEGER" property="secondApproveStatus" />
+		<result column="second_approve_time" jdbcType="TIMESTAMP" property="secondApproveTime" />
+		<result column="second_approve_user" jdbcType="VARCHAR" property="secondApproveUser" />
+		<result column="second_approve_user_id" jdbcType="VARCHAR" property="secondApproveUserId" />
+		<result column="second_approve_opinion" jdbcType="VARCHAR" property="secondApproveOpinion" />
+		<result column="second_category_child_id" jdbcType="VARCHAR" property="secondCategoryChildId" />
+		<result column="second_category_tree_path" jdbcType="VARCHAR" property="secondCategoryTreePath" />
+		<result column="status" jdbcType="INTEGER" property="status" />
+		<result column="attr0" jdbcType="VARCHAR" property="attr0" />
+		<result column="attr1" jdbcType="VARCHAR" property="attr1" />
+		<result column="attr2" jdbcType="VARCHAR" property="attr2" />
+		<result column="attr3" jdbcType="VARCHAR" property="attr3" />
+		<result column="attr4" jdbcType="VARCHAR" property="attr4" />
+	</resultMap>
+	<sql id="Base_Column_List">
+	`id`, `create_date`, `modify_date`, `user_id`, `user_name`, `final_category_child_id`, `final_category_child_name`, `final_category_tree_path`, `first_approve_status`, `first_approve_time`, `first_approve_user`, `first_approve_user_id`, `first_approve_opinion`, `first_category_child_id`, `first_category_tree_path`, `second_approve_status`, `second_approve_time`, `second_approve_user`, `second_approve_user_id`, `second_approve_opinion`, `second_category_child_id`, `second_category_tree_path`, `status`, `attr0`, `attr1`, `attr2`, `attr3`, `attr4`
+	</sql>
+
+    <!-- 批量插入 -->
+    <insert id = "batchInsert">
+        INSERT INTO `qa_info_record` (<include refid="Base_Column_List" />) VALUES
+        <foreach collection="items" item="item" separator=",">
+            (
+			#{item.id},
+		    
+			#{item.createDate},
+		    
+			#{item.modifyDate},
+		    
+			#{item.userId},
+		    
+			#{item.userName},
+		    
+			#{item.finalCategoryChildId},
+		    
+			#{item.finalCategoryChildName},
+		    
+			#{item.finalCategoryTreePath},
+		    
+			#{item.firstApproveStatus},
+		    
+			#{item.firstApproveTime},
+		    
+			#{item.firstApproveUser},
+		    
+			#{item.firstApproveUserId},
+		    
+			#{item.firstApproveOpinion},
+		    
+			#{item.firstCategoryChildId},
+		    
+			#{item.firstCategoryTreePath},
+		    
+			#{item.secondApproveStatus},
+		    
+			#{item.secondApproveTime},
+		    
+			#{item.secondApproveUser},
+		    
+			#{item.secondApproveUserId},
+		    
+			#{item.secondApproveOpinion},
+		    
+			#{item.secondCategoryChildId},
+		    
+			#{item.secondCategoryTreePath},
+		    
+			#{item.status},
+		    
+			#{item.attr0},
+		    
+			#{item.attr1},
+		    
+			#{item.attr2},
+		    
+			#{item.attr3},
+		    
+			#{item.attr4}
+		    )
+        </foreach>
+    </insert>
+
+    <!-- 批量更新 -->
+    <update id="batchUpdate">
+        <foreach collection="items" item="item" index="index" open="" close="" separator=";">
+            UPDATE `qa_info_record`
+            <set>
+                   <if test="item.id != null">
+                       `id` = #{item.id},
+                   </if>
+                   <if test="item.createDate != null">
+                       `create_date` = #{item.createDate},
+                   </if>
+                   <if test="item.modifyDate != null">
+                       `modify_date` = #{item.modifyDate},
+                   </if>
+                   <if test="item.userId != null">
+                       `user_id` = #{item.userId},
+                   </if>
+                   <if test="item.userName != null">
+                       `user_name` = #{item.userName},
+                   </if>
+                   <if test="item.finalCategoryChildId != null">
+                       `final_category_child_id` = #{item.finalCategoryChildId},
+                   </if>
+                   <if test="item.finalCategoryChildName != null">
+                       `final_category_child_name` = #{item.finalCategoryChildName},
+                   </if>
+                   <if test="item.finalCategoryTreePath != null">
+                       `final_category_tree_path` = #{item.finalCategoryTreePath},
+                   </if>
+                   <if test="item.firstApproveStatus != null">
+                       `first_approve_status` = #{item.firstApproveStatus},
+                   </if>
+                   <if test="item.firstApproveTime != null">
+                       `first_approve_time` = #{item.firstApproveTime},
+                   </if>
+                   <if test="item.firstApproveUser != null">
+                       `first_approve_user` = #{item.firstApproveUser},
+                   </if>
+                   <if test="item.firstApproveUserId != null">
+                       `first_approve_user_id` = #{item.firstApproveUserId},
+                   </if>
+                   <if test="item.firstApproveOpinion != null">
+                       `first_approve_opinion` = #{item.firstApproveOpinion},
+                   </if>
+                   <if test="item.firstCategoryChildId != null">
+                       `first_category_child_id` = #{item.firstCategoryChildId},
+                   </if>
+                   <if test="item.firstCategoryTreePath != null">
+                       `first_category_tree_path` = #{item.firstCategoryTreePath},
+                   </if>
+                   <if test="item.secondApproveStatus != null">
+                       `second_approve_status` = #{item.secondApproveStatus},
+                   </if>
+                   <if test="item.secondApproveTime != null">
+                       `second_approve_time` = #{item.secondApproveTime},
+                   </if>
+                   <if test="item.secondApproveUser != null">
+                       `second_approve_user` = #{item.secondApproveUser},
+                   </if>
+                   <if test="item.secondApproveUserId != null">
+                       `second_approve_user_id` = #{item.secondApproveUserId},
+                   </if>
+                   <if test="item.secondApproveOpinion != null">
+                       `second_approve_opinion` = #{item.secondApproveOpinion},
+                   </if>
+                   <if test="item.secondCategoryChildId != null">
+                       `second_category_child_id` = #{item.secondCategoryChildId},
+                   </if>
+                   <if test="item.secondCategoryTreePath != null">
+                       `second_category_tree_path` = #{item.secondCategoryTreePath},
+                   </if>
+                   <if test="item.status != null">
+                       `status` = #{item.status},
+                   </if>
+                   <if test="item.attr0 != null">
+                       `attr0` = #{item.attr0},
+                   </if>
+                   <if test="item.attr1 != null">
+                       `attr1` = #{item.attr1},
+                   </if>
+                   <if test="item.attr2 != null">
+                       `attr2` = #{item.attr2},
+                   </if>
+                   <if test="item.attr3 != null">
+                       `attr3` = #{item.attr3},
+                   </if>
+                   <if test="item.attr4 != null">
+                       `attr4` = #{item.attr4}
+                   </if>
+            </set>
+            <where>
+			`id` = #{item.id}
+            </where>
+        </foreach>
+    </update>
+</mapper>

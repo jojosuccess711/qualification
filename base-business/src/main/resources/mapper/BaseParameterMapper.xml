@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bdjbd.dao.mapper.BaseParameterMapper">
+	<resultMap id="BaseResultMap" type="com.bdjbd.dao.entity.BaseParameter">
+		<id column="id" jdbcType="VARCHAR" property="id" />
+		<result column="group_id" jdbcType="VARCHAR" property="groupId" />
+		<result column="name" jdbcType="VARCHAR" property="name" />
+		<result column="title" jdbcType="VARCHAR" property="title" />
+		<result column="type" jdbcType="VARCHAR" property="type" />
+		<result column="type_validate" jdbcType="VARCHAR" property="typeValidate" />
+		<result column="orders" jdbcType="INTEGER" property="orders" />
+		<result column="attr0" jdbcType="VARCHAR" property="attr0" />
+		<result column="attr1" jdbcType="VARCHAR" property="attr1" />
+		<result column="attr2" jdbcType="VARCHAR" property="attr2" />
+		<result column="attr3" jdbcType="VARCHAR" property="attr3" />
+		<result column="attr4" jdbcType="VARCHAR" property="attr4" />
+		<result column="status" jdbcType="INTEGER" property="status" />
+	</resultMap>
+	<sql id="Base_Column_List">
+	`id`, `group_id`, `name`, `title`, `type`, `type_validate`, `orders`, `attr0`, `attr1`, `attr2`, `attr3`, `attr4`, `attr5`,`status`
+	</sql>
+
+    <!-- 批量插入 -->
+    <insert id = "batchInsert">
+        INSERT INTO `base_parameter` (<include refid="Base_Column_List" />) VALUES
+        <foreach collection="items" item="item" separator=",">
+            (
+			#{item.id},
+		    
+			#{item.groupId},
+		    
+			#{item.name},
+		    
+			#{item.title},
+		    
+			#{item.type},
+		    
+			#{item.typeValidate},
+		    
+			#{item.orders},
+		    
+			#{item.attr0},
+		    
+			#{item.attr1},
+		    
+			#{item.attr2},
+		    
+			#{item.attr3},
+		    
+			#{item.attr4},
+			#{item.status}
+		    )
+        </foreach>
+    </insert>
+
+	<!-- 通过参数组ID获取参数项列表 -->
+	<select id="findParametersByGroupId" resultMap="BaseResultMap">
+		SELECT <include refid="Base_Column_List"></include> FROM `base_parameter` WHERE `group_id` = #{groupId} OR `group_id` = 'all'
+		AND status = '1' Order by orders asc
+	</select>
+
+
+</mapper>

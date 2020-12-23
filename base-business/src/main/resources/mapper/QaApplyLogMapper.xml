@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bdjbd.dao.mapper.QaApplyLogMapper">
+	<resultMap id="BaseResultMap" type="com.bdjbd.dao.entity.QaApplyLog">
+		<id column="id" jdbcType="VARCHAR" property="id" />
+		<result column="apply_id" jdbcType="VARCHAR" property="applyId" />
+		<result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+		<result column="modify_date" jdbcType="TIMESTAMP" property="modifyDate" />
+		<result column="user_name" jdbcType="VARCHAR" property="userName" />
+		<result column="user_id" jdbcType="VARCHAR" property="userId" />
+		<result column="category_id" jdbcType="VARCHAR" property="categoryId" />
+		<result column="type" jdbcType="INTEGER" property="type" />
+		<result column="category_child_id" jdbcType="VARCHAR" property="categoryChildId" />
+		<result column="category_academic_id" jdbcType="VARCHAR" property="categoryAcademicId" />
+	</resultMap>
+	<sql id="Base_Column_List">
+	`id`, `apply_id`, `create_date`, `modify_date`, `user_name`, `user_id`, `category_id`, `type`, `category_child_id`, `category_academic_id`
+	</sql>
+
+    <!-- 批量插入 -->
+    <insert id = "batchInsert">
+        INSERT INTO `qa_apply_log` (<include refid="Base_Column_List" />) VALUES
+        <foreach collection="items" item="item" separator=",">
+            (
+			#{item.id},
+		    
+			#{item.applyId},
+		    
+			#{item.createDate},
+		    
+			#{item.modifyDate},
+		    
+			#{item.userName},
+		    
+			#{item.userId},
+		    
+			#{item.categoryId},
+		    
+			#{item.type},
+		    
+			#{item.categoryChildId},
+		    
+			#{item.categoryAcademicId}
+		    )
+        </foreach>
+    </insert>
+
+    <!-- 批量更新 -->
+    <update id="batchUpdate">
+        <foreach collection="items" item="item" index="index" open="" close="" separator=";">
+            UPDATE `qa_apply_log`
+            <set>
+                   <if test="item.id != null">
+                       `id` = #{item.id},
+                   </if>
+                   <if test="item.applyId != null">
+                       `apply_id` = #{item.applyId},
+                   </if>
+                   <if test="item.createDate != null">
+                       `create_date` = #{item.createDate},
+                   </if>
+                   <if test="item.modifyDate != null">
+                       `modify_date` = #{item.modifyDate},
+                   </if>
+                   <if test="item.userName != null">
+                       `user_name` = #{item.userName},
+                   </if>
+                   <if test="item.userId != null">
+                       `user_id` = #{item.userId},
+                   </if>
+                   <if test="item.categoryId != null">
+                       `category_id` = #{item.categoryId},
+                   </if>
+                   <if test="item.type != null">
+                       `type` = #{item.type},
+                   </if>
+                   <if test="item.categoryChildId != null">
+                       `category_child_id` = #{item.categoryChildId},
+                   </if>
+                   <if test="item.categoryAcademicId != null">
+                       `category_academic_id` = #{item.categoryAcademicId}
+                   </if>
+            </set>
+            <where>
+			`id` = #{item.id}
+            </where>
+        </foreach>
+    </update>
+</mapper>

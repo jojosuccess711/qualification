@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bdjbd.dao.mapper.QaReviewProfessionalEvaluationMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.bdjbd.dao.entity.QaReviewProfessionalEvaluationEntity" id="qaReviewProfessionalEvaluationMap">
+        <result property="id" column="id"/>
+        <result property="userId" column="user_id"/>
+        <result property="trainingExperience" column="training_experience"/>
+        <result property="teachingSituation" column="teaching_situation"/>
+        <result property="teachingQuality" column="teaching_quality"/>
+        <result property="teachingReward" column="teaching_reward"/>
+        <result property="teachingReward2" column="teaching_reward2"/>
+        <result property="guideStudents1" column="guide_students1"/>
+        <result property="guideStudents2" column="guide_students2"/>
+        <result property="guideStudents3" column="guide_students3"/>
+        <result property="guideStudents4" column="guide_students4"/>
+        <result property="guideStudents5" column="guide_students5"/>
+        <result property="textbookHandout" column="textbook_handout"/>
+        <result property="teachingAchievements1" column="teaching_achievements1"/>
+        <result property="teachingAchievements2" column="teaching_achievements2"/>
+        <result property="teachingAchievements3" column="teaching_achievements3"/>
+        <result property="scientificProjects" column="scientific_projects"/>
+        <result property="monographs1" column="monographs1"/>
+        <result property="monographs2" column="monographs2"/>
+        <result property="academicPapers1" column="academic_papers1"/>
+        <result property="academicPapers2" column="academic_papers2"/>
+        <result property="rewardPunishment" column="reward_punishment"/>
+        <result property="talentEngineering" column="talent_engineering"/>
+        <result property="completionTasks1" column="completion_tasks1"/>
+        <result property="completionTasks2" column="completion_tasks2"/>
+        <result property="completionTasks3" column="completion_tasks3"/>
+        <result property="otherWorkDescription" column="other_work_description"/>
+        <result property="postType" column="post_type"/>
+        <result property="titleType" column="title_type"/>
+        <result property="anotherName" column="another_name"/>
+        <result property="submitStatus" column="submit_status"/>
+        <result property="education" column="education"/>
+        <result property="kyobo" column="kyobo"/>
+        <result property="research" column="research"/>
+        <result property="politics" column="politics"/>
+    </resultMap>
+
+    <select id="findByUserId" resultMap="qaReviewProfessionalEvaluationMap">
+        select * from qa_review_professional_evaluation t where t.user_id = #{userId}
+    </select>
+
+    <update id="updateByUserId">
+        UPDATE qa_review_professional_evaluation
+        <trim prefix="set" suffixOverrides=",">
+            <if test="trainingExperience!=null">training_experience=#{trainingExperience},</if>
+            <if test="teachingSituation!=null">teaching_situation=#{teachingSituation},</if>
+            <if test="teachingQuality!=null">teaching_quality=#{teachingQuality},</if>
+            <if test="teachingReward!=null">teaching_reward=#{teachingReward},</if>
+            <if test="teachingReward2!=null">teaching_reward2=#{teachingReward2},</if>
+            <if test="guideStudents1!=null">guide_students1=#{guideStudents1},</if>
+            <if test="guideStudents2!=null">guide_students2=#{guideStudents2},</if>
+            <if test="guideStudents3!=null">guide_students3=#{guideStudents3},</if>
+            <if test="guideStudents4!=null">guide_students4=#{guideStudents4},</if>
+            <if test="guideStudents5!=null">guide_students5=#{guideStudents5},</if>
+            <if test="textbookHandout!=null">textbook_handout=#{textbookHandout},</if>
+            <if test="teachingAchievements1!=null">teaching_achievements1=#{teachingAchievements1},</if>
+            <if test="teachingAchievements2!=null">teaching_achievements2=#{teachingAchievements2},</if>
+            <if test="teachingAchievements3!=null">teaching_achievements3=#{teachingAchievements3},</if>
+            <if test="scientificProjects!=null">scientific_projects=#{scientificProjects},</if>
+            <if test="monographs1!=null">monographs1=#{monographs1},</if>
+            <if test="monographs2!=null">monographs2=#{monographs2},</if>
+            <if test="academicPapers1!=null">academic_papers1=#{academicPapers1},</if>
+            <if test="academicPapers2!=null">academic_papers2=#{academicPapers2},</if>
+            <if test="rewardPunishment!=null">reward_punishment=#{rewardPunishment},</if>
+            <if test="talentEngineering!=null">reward_punishment=#{talentEngineering},</if>
+            <if test="completionTasks1!=null">completion_tasks1=#{completionTasks1},</if>
+            <if test="completionTasks2!=null">completion_tasks2=#{completionTasks2},</if>
+            <if test="completionTasks3!=null">completion_tasks3=#{completionTasks3},</if>
+            <if test="otherWorkDescription!=null">other_work_description=#{otherWorkDescription},</if>
+            <if test="postType!=null">post_type=#{postType},</if>
+            <if test="titleType!=null">title_type=#{titleType},</if>
+            <if test="anotherName!=null">another_name=#{anotherName},</if>
+            <if test="submitStatus!=null">submit_status=#{submitStatus},</if>
+            <if test="education!=0">education=#{education},</if>
+            <if test="kyobo!=0">kyobo=#{kyobo},</if>
+            <if test="research!=0">research=#{research},</if>
+            <if test="politics!=0">politics=#{politics},</if>
+        </trim>
+        WHERE user_id=#{userId}
+    </update>
+
+    <insert id="saveProfessionalEvaluation">
+        insert into qa_review_professional_evaluation
+            (
+                user_id,
+                training_experience,
+                teaching_situation,
+                teaching_quality,
+                teaching_reward,
+                teaching_reward2,
+                guide_students1,
+                guide_students2,
+                guide_students3,
+                guide_students4,
+                guide_students5,
+                textbook_handout,
+                teaching_achievements1,
+                teaching_achievements2,
+                teaching_achievements3,
+                scientific_projects,
+                monographs1,
+                monographs2,
+                academic_papers1,
+                academic_papers2,
+                talent_engineering,
+                reward_punishment,
+                completion_tasks1,
+                completion_tasks2,
+                completion_tasks3,
+                other_work_description
+            )
+            values
+            (
+            #{userId,jdbcType=VARCHAR},
+            #{trainingExperience,jdbcType=VARCHAR},
+            #{teachingSituation,jdbcType=VARCHAR},
+            #{teachingQuality,jdbcType=VARCHAR},
+            #{teachingReward,jdbcType=VARCHAR},
+            #{teachingReward2,jdbcType=VARCHAR},
+            #{guideStudents1,jdbcType=VARCHAR},
+            #{guideStudents2,jdbcType=VARCHAR},
+            #{guideStudents3,jdbcType=VARCHAR},
+            #{guideStudents4,jdbcType=VARCHAR},
+            #{guideStudents5,jdbcType=VARCHAR},
+            #{textbookHandout,jdbcType=VARCHAR},
+            #{teachingAchievements1,jdbcType=VARCHAR},
+            #{teachingAchievements2,jdbcType=VARCHAR},
+            #{teachingAchievements3,jdbcType=VARCHAR},
+            #{scientificProjects,jdbcType=VARCHAR},
+            #{monographs1,jdbcType=VARCHAR},
+            #{monographs2,jdbcType=VARCHAR},
+            #{academicPapers1,jdbcType=VARCHAR},
+            #{academicPapers2,jdbcType=VARCHAR},
+            #{talentEngineering,jdbcType=VARCHAR},
+            #{rewardPunishment,jdbcType=VARCHAR},
+            #{completionTasks1,jdbcType=VARCHAR},
+            #{completionTasks2,jdbcType=VARCHAR},
+            #{completionTasks3,jdbcType=VARCHAR},
+            #{otherWorkDescription,jdbcType=VARCHAR}
+            )
+    </insert>
+
+    <select id="firstParticipateManagement" resultType="java.util.Map">
+        SELECT sr.name, sr.technology_category, rpe.title_type, rpe.post_type, rpe.another_name
+            , a.second_check_status
+        FROM qa_review_professional_evaluation rpe
+            INNER JOIN qa_standard_record sr ON rpe.user_id = sr.user_id
+            INNER JOIN (
+                SELECT ar.user_id, ar.second_check_status
+                FROM qa_academic_record1 ar
+                WHERE ar.category_child_id in (
+                        SELECT sr.attr2
+                        FROM qa_review_professional_evaluation rpe
+                            INNER JOIN qa_standard_record sr
+                            ON rpe.user_id = sr.user_id
+                        WHERE 1=1
+                        <include refid="where_if"/>
+                    )
+                    AND ar.category_academic_id in (
+                        SELECT sr.attr3
+                        FROM qa_review_professional_evaluation rpe
+                            INNER JOIN qa_standard_record sr
+                            ON rpe.user_id = sr.user_id
+                        WHERE 1=1
+                        <include refid="where_if"/>
+                    )
+            ) a
+            ON rpe.user_id = a.user_id
+        WHERE rpe.another_name = #{anotherName}
+    </select>
+    <sql id="where_if">
+        <if test='category == "其他"'>
+            and (sr.category = '实验类' or sr.category = '专门业务类')
+        </if>
+        <if test='category != "其他"'>
+            and sr.category = #{category}
+        </if>
+        AND rpe.another_name = #{anotherName}
+    </sql>
+
+
+</mapper>

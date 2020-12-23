@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bdjbd.dao.mapper.QaRelationClauseGroupMapper">
+	<resultMap id="BaseResultMap" type="com.bdjbd.dao.entity.QaRelationClauseGroup">
+		<result column="group_id" jdbcType="VARCHAR" property="groupId" />
+		<result column="clause_id" jdbcType="VARCHAR" property="clauseId" />
+	</resultMap>
+	<sql id="Base_Column_List">
+	`group_id`, `clause_id`
+	</sql>
+
+    <!-- 批量插入 -->
+    <insert id = "batchInsert">
+        INSERT INTO `qa_relation_clause_group` (<include refid="Base_Column_List" />) VALUES
+        <foreach collection="items" item="item" separator=",">
+            (
+			#{item.groupId},
+		    
+			#{item.clauseId}
+		    )
+        </foreach>
+    </insert>
+
+</mapper>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bdjbd.dao.mapper.QaReviewProfessionalEvaluationTemplateMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.bdjbd.dao.entity.QaReviewProfessionalEvaluationTemplateEntity" id="qaReviewProfessionalEvaluationTemplateMap">
+        <result property="id" column="id"/>
+        <result property="trainingExperience" column="training_experience"/>
+        <result property="teachingSituation" column="teaching_situation"/>
+        <result property="teachingQuality" column="teaching_quality"/>
+        <result property="teachingReward" column="teaching_reward"/>
+        <result property="teachingReward2" column="teaching_reward2"/>
+        <result property="guideStudents1" column="guide_students1"/>
+        <result property="guideStudents2" column="guide_students2"/>
+        <result property="guideStudents3" column="guide_students3"/>
+        <result property="guideStudents4" column="guide_students4"/>
+        <result property="guideStudents5" column="guide_students5"/>
+        <result property="textbookHandout" column="textbook_handout"/>
+        <result property="teachingAchievements1" column="teaching_achievements1"/>
+        <result property="teachingAchievements2" column="teaching_achievements2"/>
+        <result property="teachingAchievements3" column="teaching_achievements3"/>
+        <result property="scientificProjects" column="scientific_projects"/>
+        <result property="monographs1" column="monographs1"/>
+        <result property="monographs2" column="monographs2"/>
+        <result property="academicPapers1" column="academic_papers1"/>
+        <result property="academicPapers2" column="academic_papers2"/>
+        <result property="talentEngineering" column="talent_engineering"/>
+        <result property="rewardPunishment" column="reward_punishment"/>
+        <result property="completionTasks1" column="completion_tasks1"/>
+        <result property="completionTasks2" column="completion_tasks2"/>
+        <result property="completionTasks3" column="completion_tasks3"/>
+        <result property="otherWorkDescription" column="other_work_description"/>
+    </resultMap>
+
+    <!--获取专业技术职务评审一览表(模板)信息-->
+    <select id="getTemplateData" resultMap="qaReviewProfessionalEvaluationTemplateMap">
+        SELECT
+            *
+        FROM qa_review_professional_evaluation_template
+    </select>
+</mapper>

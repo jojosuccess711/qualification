@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bdjbd.dao.mapper.QaBaseClauseItemMapper">
+	<resultMap id="BaseResultMap" type="com.bdjbd.dao.entity.QaBaseClauseItem">
+		<id column="id" jdbcType="VARCHAR" property="id" />
+		<result column="clause_id" jdbcType="VARCHAR" property="clauseId" />
+		<result column="code" jdbcType="VARCHAR" property="code" />
+		<result column="title" jdbcType="VARCHAR" property="title" />
+		<result column="content" jdbcType="VARCHAR" property="content" />
+		<result column="memo" jdbcType="VARCHAR" property="memo" />
+		<result column="type" jdbcType="VARCHAR" property="type" />
+		<result column="type_validate" jdbcType="VARCHAR" property="typeValidate" />
+		<result column="location_index" jdbcType="INTEGER" property="locationIndex" />
+		<result column="value" jdbcType="VARCHAR" property="value" />
+		<result column="relation" jdbcType="VARCHAR" property="relation" />
+		<result column="attr0" jdbcType="VARCHAR" property="attr0" />
+		<result column="attr1" jdbcType="VARCHAR" property="attr1" />
+		<result column="attr2" jdbcType="VARCHAR" property="attr2" />
+		<result column="attr3" jdbcType="VARCHAR" property="attr3" />
+		<result column="attr4" jdbcType="VARCHAR" property="attr4" />
+	</resultMap>
+	<sql id="Base_Column_List">
+	`id`, `clause_id`, `code`, `title`, `content`, `memo`, `type`, `type_validate`, `location_index`, `value`, `relation`, `attr0`, `attr1`, `attr2`, `attr3`, `attr4`
+	</sql>
+
+    <!-- 批量插入 -->
+    <insert id = "batchInsert">
+        INSERT INTO `qa_base_clause_item` (<include refid="Base_Column_List" />) VALUES
+        <foreach collection="items" item="item" separator=",">
+            (
+			#{item.id},
+		    
+			#{item.clauseId},
+		    
+			#{item.code},
+		    
+			#{item.title},
+		    
+			#{item.content},
+		    
+			#{item.memo},
+		    
+			#{item.type},
+		    
+			#{item.typeValidate},
+		    
+			#{item.locationIndex},
+		    
+			#{item.value},
+		    
+			#{item.relation},
+		    
+			#{item.attr0},
+		    
+			#{item.attr1},
+		    
+			#{item.attr2},
+		    
+			#{item.attr3},
+		    
+			#{item.attr4}
+		    )
+        </foreach>
+    </insert>
+
+    <!-- 批量更新 -->
+    <update id="batchUpdate">
+        <foreach collection="items" item="item" index="index" open="" close="" separator=";">
+            UPDATE `qa_base_clause_item`
+            <set>
+                   <if test="item.id != null">
+                       `id` = #{item.id},
+                   </if>
+                   <if test="item.clauseId != null">
+                       `clause_id` = #{item.clauseId},
+                   </if>
+                   <if test="item.code != null">
+                       `code` = #{item.code},
+                   </if>
+                   <if test="item.title != null">
+                       `title` = #{item.title},
+                   </if>
+                   <if test="item.content != null">
+                       `content` = #{item.content},
+                   </if>
+                   <if test="item.memo != null">
+                       `memo` = #{item.memo},
+                   </if>
+                   <if test="item.type != null">
+                       `type` = #{item.type},
+                   </if>
+                   <if test="item.typeValidate != null">
+                       `type_validate` = #{item.typeValidate},
+                   </if>
+                   <if test="item.locationIndex != null">
+                       `location_index` = #{item.locationIndex},
+                   </if>
+                   <if test="item.value != null">
+                       `value` = #{item.value},
+                   </if>
+                   <if test="item.relation != null">
+                       `relation` = #{item.relation},
+                   </if>
+                   <if test="item.attr0 != null">
+                       `attr0` = #{item.attr0},
+                   </if>
+                   <if test="item.attr1 != null">
+                       `attr1` = #{item.attr1},
+                   </if>
+                   <if test="item.attr2 != null">
+                       `attr2` = #{item.attr2},
+                   </if>
+                   <if test="item.attr3 != null">
+                       `attr3` = #{item.attr3},
+                   </if>
+                   <if test="item.attr4 != null">
+                       `attr4` = #{item.attr4}
+                   </if>
+            </set>
+            <where>
+			`id` = #{item.id}
+            </where>
+        </foreach>
+    </update>
+
+    <!--根据职称id集合获取所有评审条件项-->
+    <select id="findItemByAcademics" resultType="map">
+        SELECT a.id as itemId, a.`code` as itemCode, a.type as itemType, a.type_validate as typeValidate,
+        b.id as clauseId, b.title as clauseTitle, b.content as clauseContent,
+        d.id as groupId, d.title as groupTitle, d.content as groupContent,
+        e.type as groupType, e.inner_group innerGroup
+        FROM qa_base_clause_item a
+        LEFT JOIN qa_base_clause b ON a.clause_id = b.id
+        LEFT JOIN qa_relation_clause_group c ON b.id = c.clause_id
+        LEFT JOIN qa_base_clause_group d ON d.id = c.group_id
+        LEFT JOIN qa_relation_clause_group_category e ON e.group_id = d.id
+        WHERE e.category_id IN (
+        <foreach collection="academicIdList" item="academicId" index="index" separator=",">
+            #{academicId}
+        </foreach>
+        )
+        group by a.id, b.id
+    </select>
+
+    <!-- 通过职称查询符合的条件信息 -->
+    <select id="findItemsByCategory" resultType="com.bdjbd.bo.MapperClause">
+        SELECT a.id as itemId, a.`code` as itemCode, a.type as itemType, a.type_validate as typeValidate,
+               a.attr0 as itemAttr0, a.attr1 as itemAttr1, a.attr2 as itemAttr2, a.attr3 as itemAttr3, a.attr4 as itemAttr4,
+               a1.relation_value as itemValue, a1.relation_id as itemRelationId, a1.express as itemExpress, a1.code as itemRelationCode,
+               b.id as clauseId, b.title as clauseTitle, b.content as clauseContent, b.orders as clauseOrders,
+               b1.clause_item_condition as clauseItemCondition,
+               d.id as groupId, d.title as groupTitle, d.content as groupContent, d.`condition` as groupCondition,
+               e.type as groupType, e.inner_group innerGroup, e.clause_condition as clauseCondition,
+               f.another_name as anotherName, f.id as categoryId
+        FROM qa_base_clause_item a
+            LEFT JOIN qa_relation_clause_item_category a1 ON a.id = a1.item_id AND a1.category_id = #{categoryId}
+            LEFT JOIN qa_base_clause b ON a.clause_id = b.id
+            LEFT JOIN qa_relation_clause_category b1 ON b1.clause_id = b.id AND b1.category_id = #{categoryId}
+            LEFT JOIN qa_relation_clause_group c ON b.id = c.clause_id
+            LEFT JOIN qa_base_clause_group d ON d.id = c.group_id
+            LEFT JOIN qa_relation_clause_group_category e ON e.group_id = d.id AND e.category_id = #{categoryId}
+            LEFT JOIN qa_category f ON f.id = e.category_id
+        WHERE f.id = #{categoryId}
+    </select>
+</mapper>

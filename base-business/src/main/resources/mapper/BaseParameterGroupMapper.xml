@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bdjbd.dao.mapper.BaseParameterGroupMapper">
+    <resultMap id="BaseResultMap" type="com.bdjbd.dao.entity.BaseParameterGroup">
+        <id column="id" jdbcType="VARCHAR" property="id"/>
+        <result column="create_date" jdbcType="TIMESTAMP" property="createDate"/>
+        <result column="modify_date" jdbcType="TIMESTAMP" property="modifyDate"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="type" jdbcType="INTEGER" property="type"/>
+        <result column="titile" jdbcType="VARCHAR" property="titile"/>
+        <result column="introduction" jdbcType="VARCHAR" property="introduction"/>
+        <result column="orders" jdbcType="INTEGER" property="orders"/>
+        <result column="memo" jdbcType="VARCHAR" property="memo"/>
+        <result column="url" jdbcType="VARCHAR" property="url"/>
+        <result column="attr0" jdbcType="VARCHAR" property="attr0"/>
+        <result column="attr1" jdbcType="VARCHAR" property="attr1"/>
+        <result column="attr2" jdbcType="VARCHAR" property="attr2"/>
+        <result column="attr3" jdbcType="VARCHAR" property="attr3"/>
+        <result column="attr4" jdbcType="VARCHAR" property="attr4"/>
+        <result column="grade" jdbcType="INTEGER" property="grade"/>
+        <result column="status" jdbcType="INTEGER" property="status" />
+    </resultMap>
+    <sql id="Base_Column_List">
+	`id`, `create_date`, `modify_date`, `name`, `type`, `titile`, `introduction`, `orders`, `memo`, `url`, `attr0`, `attr1`, `attr2`, `attr3`, `attr4`, `grade`, `status`
+	</sql>
+
+    <!-- 批量插入 -->
+    <insert id="batchInsert">
+        INSERT INTO `base_parameter_group` (<include refid="Base_Column_List"/>) VALUES
+        <foreach collection="items" item="item" separator=",">
+            (
+            #{item.id},
+
+            #{item.createDate},
+
+            #{item.modifyDate},
+
+            #{item.name},
+
+            #{item.type},
+
+            #{item.titile},
+
+            #{item.introduction},
+
+            #{item.orders},
+
+            #{item.memo},
+
+            #{item.url},
+
+            #{item.attr0},
+
+            #{item.attr1},
+
+            #{item.attr2},
+
+            #{item.attr3},
+
+            #{item.attr4},
+
+            #{item.grade},
+            #{item.status}
+            )
+        </foreach>
+    </insert>
+
+    <!-- 批量更新 -->
+    <update id="batchUpdate">
+        <foreach collection="items" item="item" index="index" open="" close="" separator=";">
+            UPDATE `base_parameter_group`
+            <set>
+                <if test="item.id != null">
+                    `id` = #{item.id},
+                </if>
+                <if test="item.createDate != null">
+                    `create_date` = #{item.createDate},
+                </if>
+                <if test="item.modifyDate != null">
+                    `modify_date` = #{item.modifyDate},
+                </if>
+                <if test="item.name != null">
+                    `name` = #{item.name},
+                </if>
+                <if test="item.type != null">
+                    `type` = #{item.type},
+                </if>
+                <if test="item.titile != null">
+                    `titile` = #{item.titile},
+                </if>
+                <if test="item.introduction != null">
+                    `introduction` = #{item.introduction},
+                </if>
+                <if test="item.orders != null">
+                    `orders` = #{item.orders},
+                </if>
+                <if test="item.memo != null">
+                    `memo` = #{item.memo},
+                </if>
+                <if test="item.url != null">
+                    `url` = #{item.url},
+                </if>
+                <if test="item.attr0 != null">
+                    `attr0` = #{item.attr0},
+                </if>
+                <if test="item.attr1 != null">
+                    `attr1` = #{item.attr1},
+                </if>
+                <if test="item.attr2 != null">
+                    `attr2` = #{item.attr2},
+                </if>
+                <if test="item.attr3 != null">
+                    `attr3` = #{item.attr3},
+                </if>
+                <if test="item.attr4 != null">
+                    `attr4` = #{item.attr4},
+                </if>
+                <if test="item.grade != null">
+                    `grade` = #{item.grade}
+                </if>
+                <if test="item.status != null">
+                    `status` = #{item.status}
+                </if>
+            </set>
+            <where>
+                `id` = #{item.id}
+            </where>
+        </foreach>
+    </update>
+
+    <resultMap id="hasParameter" extends="BaseResultMap" type="com.bdjbd.dao.entity.BaseParameterGroup">
+        <collection property="parameters" column="id"
+                    select="com.bdjbd.dao.mapper.BaseParameterMapper.findByGroupId"></collection>
+    </resultMap>
+
+    <!-- 通过层级获取参数组 -->
+    <select id="findList" resultMap="hasParameter">
+        SELECT * FROM `base_parameter_group` WHERE 1 = 1
+        <if test="grade != null">
+            AND `grade` = #{grade}
+        </if>
+        ORDER BY `attr0`,`orders` ASC
+    </select>
+
+    <!-- 通过层级获取参数组 -->
+    <select id="findHasParameterById" resultMap="hasParameter">
+        SELECT * FROM `base_parameter_group` WHERE `id` = #{id}
+        ORDER BY `orders` ASC
+    </select>
+    <resultMap id="findOptionsMap" type="com.bdjbd.dao.entity.BaseParameterGroup" extends="BaseResultMap">
+        <collection property="parameters" ofType="com.bdjbd.dao.entity.BaseParameter"
+                    javaType="java.util.ArrayList" select="getParameters" column="{id=id,userId=userId}"/>
+    </resultMap>
+    <resultMap id="optionsMap" type="com.bdjbd.dao.entity.BaseParameter"
+               extends="com.bdjbd.dao.mapper.BaseParameterMapper.BaseResultMap">
+        <result property="maxOrder" javaType="String" column="maxOrder"/>
+        <collection property="options"
+                    javaType="java.util.ArrayList" select="getOptions" column="id"
+                    ofType="com.bdjbd.dao.entity.BaseSimpleDefinition"/>
+        <collection property="baseParameterGroups"
+                    javaType="java.util.ArrayList" select="getParameterGroups" column="{id=id,userId=userId}"
+                    ofType="com.bdjbd.dao.entity.BaseParameterGroup"/>
+        <collection javaType="java.util.List"
+                    property="userSelection"
+                    column="{id=id,userId=userId,group_id=group_id}"
+                    ofType="com.bdjbd.dao.entity.QaStandardRecordItem"
+                    select="getUserSelections"
+        />
+    </resultMap>
+    <select id="getParameterGroups" resultMap="findOptionsMap">
+        SELECT `id`,`name`,#{userId} userId,attr0,attr1
+            FROM
+            base_parameter_group a
+            LEFT JOIN base_relation_parameter_definition b
+            ON a.id = b.parameter_group_id
+        WHERE
+	        a.grade = 1 AND b.parameter_id = #{id}
+        ORDER BY
+	        `orders`
+    </select>
+    <select id="getUserSelections" resultType="com.bdjbd.dao.entity.QaStandardRecordItem">
+         SELECT id,parameter_value parameterValue,orders  FROM qa_standard_record_item WHERE parameter_id = #{id} AND record_id = (
+                SELECT id FROM qa_standard_record WHERE user_id = #{userId}) AND parameter_group_id = #{group_id}
+    </select>
+    <select id="getParameters" resultMap="optionsMap">
+       SELECT a.*,#{id} group_id,
+        IFNULL( (SELECT max( orders )  FROM QA_STANDARD_RECORD_ITEM f WHERE parameter_id = a.id  AND record_id =
+        (SELECT id  FROM  qa_standard_record  WHERE  user_id =#{userId})),0) maxOrder
+        FROM(
+            SELECT`id`,`name`,`title`,`type`,`type_validate`,#{userId} userId,orders,`attr0`,attr1,attr2,attr3,attr4 FROM
+            base_parameter
+            WHERE  (group_id = #{id} OR group_id = 'all')
+                    AND `status` != 0) a ORDER BY ORDERS
+    </select>
+    <select id="getOptions" resultType="com.bdjbd.dao.entity.BaseSimpleDefinition">
+        SELECT
+        a.`id`,
+        a.`name`
+        FROM
+        `base_simple_definition` a
+        RIGHT JOIN (SELECT * FROM base_parameter WHERE id = #{id} )b
+        ON
+        a.type = b.type_validate
+        WHERE a.id IS NOT NULL order by a.orders
+    </select>
+    <select id="findOptions" resultMap="findOptionsMap">
+        SELECT `id`,`name`,#{userId} as userId, attr0,attr1
+        FROM   base_parameter_group WHERE `grade`=0 ORDER BY `attr0`,`orders`
+    </select>
+
+    <select id="findGroup" resultMap="findOptionsMap">
+        SELECT `id`,`name`,#{userId} as userId, attr0,attr1
+        FROM   base_parameter_group
+         <where>
+             id IN
+             <foreach collection="groupId" item="id" separator="," open="(" close=")">
+                #{id}
+             </foreach>
+         </where>
+    </select>
+
+    <!--查询attr0类型-->
+    <select id="findCategoryList" resultType="string">
+        SELECT attr0 FROM `base_parameter_group` WHERE attr0 IS NOT NULL GROUP BY attr0 ORDER BY attr0
+    </select>
+</mapper>

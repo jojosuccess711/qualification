@@ -1,0 +1,48 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    name: nwbd-qa
+    url: jdbc:mysql://114.115.183.190:3306/nwbd-qa?useUnicode=true&characterEncoding=utf-8&useSSL=false&allowMultiQueries=true
+    username: platform
+    password: "@Nwbd2018"
+    hikari:
+      validation-timeout: 3000
+      connection-timeout: 60000
+      max-lifetime: 60000
+      maximum-pool-size: 50
+    dbcp2:
+      validation-query: SELECT 1
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+    default-property-inclusion: non_null
+  redis: # redis主机地址及密码配置
+    database: 10
+    host: 114.115.163.149
+    password: 2ask8to9
+    timeout: 50000ms
+    jedis:
+      pool:
+        max-active: 16
+        max-wait: -1ms
+        max-idle: 8
+        min-idle: 0
+  cache:
+    redis:
+      time-to-live: PT600s
+      cache-null-values: true
+  freemarker:
+    check-template-location: false
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+      enabled: true
+logging:
+  level:
+    com.bdjbd: debug
+#  config: classpath:logback/logback-prod-spring.xml
+file:
+  upload:
+    path: /root/www/statics/userUploadFiles
+    img-path: /root/www/statics/userImgs

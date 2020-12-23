@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bdjbd.dao.mapper.QaStandardRecordItemCommittedMapper">
+	<resultMap id="BaseResultMap" type="com.bdjbd.dao.entity.QaStandardRecordItemCommitted">
+		<id column="id" jdbcType="VARCHAR" property="id" />
+		<result column="group_category" jdbcType="VARCHAR" property="groupCategory" />
+		<result column="orders" jdbcType="INTEGER" property="orders" />
+		<result column="record_id" jdbcType="VARCHAR" property="recordId" />
+		<result column="parameter_group_id" jdbcType="VARCHAR" property="parameterGroupId" />
+		<result column="parameter_id" jdbcType="VARCHAR" property="parameterId" />
+		<result column="parameter_value" jdbcType="VARCHAR" property="parameterValue" />
+		<result column="parameter_annex_url" jdbcType="VARCHAR" property="parameterAnnexUrl" />
+		<result column="attr0" jdbcType="VARCHAR" property="attr0" />
+		<result column="attr1" jdbcType="VARCHAR" property="attr1" />
+		<result column="attr2" jdbcType="VARCHAR" property="attr2" />
+		<result column="attr3" jdbcType="VARCHAR" property="attr3" />
+		<result column="attr4" jdbcType="VARCHAR" property="attr4" />
+        <result column="review_status" jdbcType="VARCHAR" property="reviewStatus" />
+	</resultMap>
+	<sql id="Base_Column_List">
+	`id`, `group_category`, `orders`, `record_id`, `parameter_group_id`, `parameter_id`, `parameter_value`, `parameter_annex_url`, `attr0`, `attr1`, `attr2`, `attr3`, `attr4`, `review_status`
+	</sql>
+
+    <!-- 批量插入 -->
+    <insert id = "batchInsert">
+        INSERT INTO `qa_standard_record_item_committed` (<include refid="Base_Column_List" />) VALUES
+        <foreach collection="items" item="item" separator=",">
+            (
+			#{item.id},
+		
+			#{item.groupCategory},
+		
+			#{item.orders},
+		
+			#{item.recordId},
+		
+			#{item.parameterGroupId},
+		
+			#{item.parameterId},
+		
+			#{item.parameterValue},
+		
+			#{item.parameterAnnexUrl},
+		
+			#{item.attr0},
+		
+			#{item.attr1},
+		
+			#{item.attr2},
+		
+			#{item.attr3},
+		
+			#{item.attr4},
+
+            #{item.reviewStatus}
+		)
+        </foreach>
+    </insert>
+
+    <!-- 批量更新 -->
+    <update id="batchUpdate"  >
+        <foreach collection="items" item="item" index="index" open="" close="" separator=";">
+            UPDATE `qa_standard_record_item_committed`
+            <set>
+                   <if test="item.id != null">
+                       `id` = #{item.id},
+                   </if>
+                   <if test="item.groupCategory != null">
+                       `group_category` = #{item.groupCategory},
+                   </if>
+                   <if test="item.orders != null">
+                       `orders` = #{item.orders},
+                   </if>
+                   <if test="item.recordId != null">
+                       `record_id` = #{item.recordId},
+                   </if>
+                   <if test="item.parameterGroupId != null">
+                       `parameter_group_id` = #{item.parameterGroupId},
+                   </if>
+                   <if test="item.parameterId != null">
+                       `parameter_id` = #{item.parameterId},
+                   </if>
+                   <if test="item.parameterValue != null">
+                       `parameter_value` = #{item.parameterValue},
+                   </if>
+                   <if test="item.parameterAnnexUrl != null">
+                       `parameter_annex_url` = #{item.parameterAnnexUrl},
+                   </if>
+                   <if test="item.attr0 != null">
+                       `attr0` = #{item.attr0},
+                   </if>
+                   <if test="item.attr1 != null">
+                       `attr1` = #{item.attr1},
+                   </if>
+                   <if test="item.attr2 != null">
+                       `attr2` = #{item.attr2},
+                   </if>
+                   <if test="item.attr3 != null">
+                       `attr3` = #{item.attr3},
+                   </if>
+                   <if test="item.attr4 != null">
+                       `attr4` = #{item.attr4}
+                   </if>
+                   <if test="item.reviewStatus != null">
+                    `review_status` = #{item.reviewStatus}
+                   </if>
+            </set>
+            <where>
+                `id` = #{item.id}
+            </where>
+        </foreach>
+    </update>
+    <select id="findRecordItemsByRecordId" resultMap="com.bdjbd.dao.mapper.QaAcademicRecordItemMapper.BaseResultMap" >
+        SELECT * FROM qa_standard_record_item_committed WHERE record_id = #{recordId}
+    </select>
+</mapper>
